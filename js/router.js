@@ -38,8 +38,8 @@ class Router {
             if (window.location.href.includes('signup')) {
                 let signupForm = new HandleSignupForm(document.querySelector("#signupForm"));
             }
-            if (window.location.href.includes('home')) {
-
+            if (window.location.href.includes('login')) {
+                let loginForm = new HandleLoginForm(document.querySelector("#loginForm"));
             }
         }
         xhr.onerror = function () {
