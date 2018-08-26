@@ -46,9 +46,7 @@ class HandleSignupForm {
         xhr.open('POST', `${path}`, true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onloadend = () => {
-            this.setHomePage()
-            //this.root.innerHTML = xhr.responseText;
-
+            document.location.hash = "#login";
         }
         xhr.onerror = function () {
             console.log(xhr.status);
@@ -58,10 +56,7 @@ class HandleSignupForm {
     }
 
     setHomePage () {
-        const currentLocation = document.location.href;
-        const tmp = currentLocation.indexOf("#");
-        const newLocation = `${currentLocation.slice(0, tmp)}#home`;
-        window.location.assign(newLocation);
+        document.location.hash = "#home";
         document.querySelectorAll('.nav-item').forEach( el => el.classList.toggle('active'));
     }
 
@@ -116,9 +111,8 @@ class HandleLoginForm {
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onloadend = () => {
             this.setHomePage();
-            console.log(`Sign in response: ${xhr.responseText}`);
+            sessionStorage.setItem('userID', xhr.responseText);
             //this.root.innerHTML = xhr.responseText;
-
         }
         xhr.onerror = function () {
             console.log(xhr.status);
@@ -128,10 +122,7 @@ class HandleLoginForm {
     }
 
     setHomePage () {
-        const currentLocation = document.location.href;
-        const tmp = currentLocation.indexOf("#");
-        const newLocation = `${currentLocation.slice(0, tmp)}#home`;
-        window.location.assign(newLocation);
+        document.location.hash = "#home";
         document.querySelectorAll('.nav-item').forEach( el => el.classList.toggle('active'));
     }
 

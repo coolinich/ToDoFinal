@@ -10,7 +10,6 @@ class Router {
         this.hashChange();
     }
     hashChange() {
-        // let signupForm = '';
         if (location.hash.length > 0) {
             this.routes.forEach((r) => {
                 if (r.isActiveRoute(location.hash)) {
@@ -25,27 +24,36 @@ class Router {
                 }
             })
         }
-     /*   if (window.location.href.includes('signup')) {
-            let signupForm = new HandleSignupForm(document.getElementById("#signupForm"));
-        }*/
     }
 
     follow (path) {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `${path}`);
+        xhr.withCredentials = true;
         xhr.onloadend = () => {
-            this.root.innerHTML = xhr.responseText;
-            if (window.location.href.includes('signup')) {
-                let signupForm = new HandleSignupForm(document.querySelector("#signupForm"));
-            }
-            if (window.location.href.includes('login')) {
-                let loginForm = new HandleLoginForm(document.querySelector("#loginForm"));
-            }
+            switch(window.location.hash) {
+                case '#signup':
+                    this.root.innerHTML = xhr.responseText;
+                    let signupForm = new HandleSignupForm(document.querySelector("#signupForm"));
+                    break;
+                case '#login':
+                    this.root.innerHTML = xhr.responseText;
+                    let loginForm = new HandleLoginForm(document.querySelector("#loginForm"));
+                    break;
+                case '#logout':
+                    sessionStorage.removeItem('userID');
+                    document.location.hash = "#login";
+                    document.querySelectorAll('.nav-item').forEach( el => el.classList.toggle('active'));
+                    break;
+                case '#home':
+                    if (!sessionStorage.getItem('userID')) document.location.hash = "#login";
+                    else this.root.innerHTML = xhr.responseText;
+                    break;
+            };
         }
         xhr.onerror = function () {
             console.log(xhr.status);
         }
-
         xhr.send();
     }
 }
