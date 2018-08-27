@@ -1,10 +1,44 @@
-<div class="card mt-5 w-75 ml-auto mr-auto bgc-pink">
-    <div class="card-body">
-        <h5 class="card-title black-text ">Task Header</h5>
-        <p class="card-text black-text ">card details bla-bla</p>
-        <div class="d-flex">
-            <a href="" class="btn p-2 m-1 bgc-light black-text">Edit</a>
-            <a href="" class="btn p-2 m-1 bgc-violet light-text">Delete</a>
+<div class="tasks">
+    <div class="card mt-5 w-75 ml-auto mr-auto bgc-pink">
+        <div class="card-body" id="0">
+            <h5 class="card-title black-text ">Task Header 1</h5>
+            <p class="card-text black-text ">card details bla-bla 1</p>
+            <div class="d-flex">
+                <a href="" class="btn p-2 m-1 bgc-light black-text">Edit</a>
+                <a href="" class="btn p-2 m-1 bgc-violet light-text">Delete</a>
+            </div>
         </div>
+    </div>
+    <div class="card mt-5 w-75 ml-auto mr-auto bgc-pink">
+        <div class="card-body" id="1">
+            <h5 class="card-title black-text ">Task Header 2</h5>
+            <p class="card-text black-text ">card details bla-bla 2</p>
+            <div class="d-flex">
+                <a href="" class="btn p-2 m-1 bgc-light black-text">Edit</a>
+                <a href="" class="btn p-2 m-1 bgc-violet light-text">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="card w-25 edit mt-5 mr-auto ml-auto">
+        <div class="card-header d-flex justify-content-between">
+            <h5 class="card-title"></h5>
+            <i class="fas fa-times close"></i>
+        </div>
+        <div class="card-body">
+            <form id="modal" action="">
+                <div class="form-group">
+                    <label for="header"></label>
+                    <input data-reg="[0-9а-яА-Яa-zA-Z _]{6,}" class="form-control" type="text" id="header" name="header">
+                </div>
+                <div class="form-group">
+                    <label for="details"></label>
+                    <textarea data-reg="[0-9а-яА-Яa-zA-Z _]{10,}" class="form-control" name="details" id="details" cols="30" rows="10"></textarea>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
