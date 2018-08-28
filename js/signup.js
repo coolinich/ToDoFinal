@@ -112,7 +112,6 @@ class HandleLoginForm {
         xhr.onloadend = () => {
             this.setHomePage();
             sessionStorage.setItem('userID', xhr.responseText);
-            //this.root.innerHTML = xhr.responseText;
         }
         xhr.onerror = function () {
             console.log(xhr.status);

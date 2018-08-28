@@ -50,15 +50,9 @@ class Router {
                     else {
                         this.root.innerHTML = xhr.responseText;
                         const handleTasks = new HandleTasks();
-                        /*const newtask = {
-                            user_id: `${encodeURIComponent(sessionStorage.getItem('userID'))}`,
-                            header: 'Task1 header',
-                            details: 'Task 1 details',
-                            date: `${Date.now()}`
-                        }
-                        ht.saveTask(xhr, newtask);*/
-                        handleTasks.getTasks(xhr);
-                        document.querySelectorAll('.tasks .card-title').forEach( (el) => el.addEventListener('click', openViewTaskModal) );
+                        handleTasks.init();
+                        const tasksTitles = document.querySelectorAll('.tasks .card-title');
+                        Array.from(tasksTitles).forEach( el => el.addEventListener('click', openViewTaskModal));
                     }
                     break;
                 case '#addnew':

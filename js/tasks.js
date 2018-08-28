@@ -1,10 +1,15 @@
+const API_BASE_URI = 'http://localhost:8000';
+
 class HandleTasks {
-    saveTask (xhr, task) {
+    saveTask (task) {
+        const xhr = new XMLHttpRequest();
         let path = `http://localhost:8000/task/add`;
         let body = JSON.stringify(task);
         xhr.open('POST', `${path}`, true);
         xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+        xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:63342');
         xhr.onloadend = () => {
             console.log(`Added Task ${xhr.responseText}`);
             //const tasks = xhr.responseText;
@@ -17,12 +22,15 @@ class HandleTasks {
         xhr.send(body);
     }
 
-    getTasks(xhr) {
+    getTasks() {
+        const xhr = new XMLHttpRequest();
         let path = `http://localhost:8000/task/all`;
-        let body = JSON.stringify(`user_id="${encodeURIComponent(sessionStorage.getItem('userID'))}"`);
+        let body = JSON.stringify({user_id: String(sessionStorage.getItem('userID'))});
         xhr.open('POST', `${path}`, true);
         xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+        xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:63342');
         xhr.onloadend = () => {
             console.log(`All Tasks ${xhr.responseText}`);
             const tasks = xhr.responseText;
@@ -34,16 +42,30 @@ class HandleTasks {
 
         xhr.send(body);
     }
+
+    init() {
+        /*const newtask = {
+    user_id: `${encodeURIComponent(sessionStorage.getItem('userID'))}`,
+    header: 'Task1 header',
+    details: 'Task 1 details',
+    date: `${Date.now()}`
+}
+    ht.saveTask(xhr, newtask);*/
+    /*        let gettasks = handleTasks.getTasks.bind(this);
+        gettasks();
+*/
+
+    }
 }
 
 
 class Modal extends HandleTasks {
-    constructor(modal){
+    constructor(modal, taskId){
         super();
         this.modal = modal;
         this.card = modal.querySelector('.card');
+        this.taskId = taskId;
         this.fillUp();
-
         this.handleClose = this.handleClose.bind(this);
     }
 
@@ -66,18 +88,20 @@ class Modal extends HandleTasks {
 
     fillUp() {
         //const tasks = this.getTasks();
-        const tasks = document.querySelectorAll('.tasks .card');
+        //const tasks = document.querySelectorAll('.tasks .card');
+        const task = document.querySelector(`.tasks .card-body[data-id="${this.taskId}"]`);
         const form = this.card.querySelector('form#modal');
-        const idCurrent = parseInt(document.querySelector('.tasks .card .card-body').getAttribute('id'));
+        //const idCurrent = parseInt(document.querySelector('.tasks .card .card-body').getAttribute('id'));
 
-        form.header.value = tasks[idCurrent].querySelector('.card-title').innerText;
-        form.details.value = tasks[idCurrent].querySelector('.card-text').innerText;
+        form.header.value = task.querySelector('.card-title').innerText;
+        form.details.value = task.querySelector('.card-text').innerText;
     }
 
 }
 
-const openViewTaskModal = () => {
-    const modalInstance = new Modal(document.querySelector('.modal'));
+const openViewTaskModal = (el) => {
+    const taskId = el.target.parentNode.dataset.id;
+    const modalInstance = new Modal(document.querySelector('.modal'), taskId);
     modalInstance.open('View Task');
     //const formHandler = new FormHandler(document.forms[0]);
 }
