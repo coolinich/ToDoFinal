@@ -25,12 +25,13 @@ class HandleTasks {
     getTasks() {
         const xhr = new XMLHttpRequest();
         let path = `http://localhost:8000/task/all`;
-        let body = JSON.stringify({user_id: String(sessionStorage.getItem('userID'))});
-        xhr.open('POST', `${path}`, true);
+        let body = JSON.stringify({user_id: sessionStorage.getItem('userID')});
+        xhr.open('POST', path);
         xhr.withCredentials = true;
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-        xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:63342');
+        xhr.setRequestHeader('Accept', '*/*');
+//        xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+//        xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:63342');
         xhr.onloadend = () => {
             console.log(`All Tasks ${xhr.responseText}`);
             const tasks = xhr.responseText;

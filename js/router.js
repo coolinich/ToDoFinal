@@ -50,7 +50,7 @@ class Router {
                     else {
                         this.root.innerHTML = xhr.responseText;
                         const handleTasks = new HandleTasks();
-                        handleTasks.init();
+                        handleTasks.getTasks();
                         const tasksTitles = document.querySelectorAll('.tasks .card-title');
                         Array.from(tasksTitles).forEach( el => el.addEventListener('click', openViewTaskModal));
                     }
